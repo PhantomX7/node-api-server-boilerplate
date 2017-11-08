@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const app=express();
 const router = require('./router');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 //DB setup
 const url = process.env.DATABASEURL || 'mongodb://localhost/auth'
@@ -16,11 +17,12 @@ db.once('open',()=>{
 
 //app setup
 app.use(morgan('combined'));
+app.use(cors());
 app.use(bodyParser.json({type: '*/*'}));
 router(app);
 
 //server setup
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8090;
 const server = http.createServer(app);
 server.listen(port);
 console.log('Server listening on:'+port);
